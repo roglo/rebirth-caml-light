@@ -8,13 +8,27 @@
 
 #define LINESIZE 100
 
+extern void start_rule(register bucket *bp, int s_lineno);
+
 /* from error.c */
+extern void illegal_character(char *c_cptr);
+extern void no_grammar();
 extern void no_space();
+extern void over_unionized(char *u_cptr);
+extern void reprec_warning(char *s);
+extern void retyped_warning(char *s);
+extern void revalued_warning(char *s);
 extern void syntax_error(int st_lineno, char *st_line, char *st_cptr);
+extern void terminal_lhs(int s_lineno);
+extern void terminal_start(char *s);
+extern void too_many_entries();
+extern void tokenized_start(char *s);
 extern void unexpected_EOF();
 extern void unterminated_comment(int c_lineno, char *c_line, char *c_cptr);
 extern void unterminated_string(int s_lineno, char *s_line, char *s_cptr);
 extern void unterminated_text(int t_lineno, char *t_line, char *t_cptr);
+extern void unterminated_union(int u_lineno, char *u_line, char *u_cptr);
+extern void used_reserved(char *s);
 
 char *cache;
 int cinc, cache_size;
