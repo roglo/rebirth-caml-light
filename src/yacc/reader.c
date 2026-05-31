@@ -11,10 +11,13 @@
 extern void start_rule(register bucket *bp, int s_lineno);
 
 /* from error.c */
+extern  void default_action_error();
 extern void illegal_character(char *c_cptr);
+extern void illegal_token_ref(int i, char *name);
 extern void no_grammar();
 extern void no_space();
 extern void over_unionized(char *u_cptr);
+extern void prec_redeclared();
 extern void reprec_warning(char *s);
 extern void retyped_warning(char *s);
 extern void revalued_warning(char *s);
@@ -23,7 +26,10 @@ extern void terminal_lhs(int s_lineno);
 extern void terminal_start(char *s);
 extern void too_many_entries();
 extern void tokenized_start(char *s);
+extern void undefined_goal(char *s);
 extern void unexpected_EOF();
+extern void unknown_rhs(int i);
+extern void unterminated_action(int a_lineno, char *a_line, char *a_cptr);
 extern void unterminated_comment(int c_lineno, char *c_line, char *c_cptr);
 extern void unterminated_string(int s_lineno, char *s_line, char *s_cptr);
 extern void unterminated_text(int t_lineno, char *t_line, char *t_cptr);
