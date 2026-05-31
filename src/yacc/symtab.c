@@ -1,5 +1,8 @@
+#include <string.h>
 #include "defs.h"
 
+/* from error.c */
+extern void no_space();
 
 bucket **symbol_table;
 bucket *first_symbol;
