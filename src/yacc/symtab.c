@@ -76,7 +76,7 @@ char *name;
 }
 
 
-create_symbol_table()
+void create_symbol_table()
 {
     register int i;
     register bucket *bp;
@@ -96,14 +96,14 @@ create_symbol_table()
 }
 
 
-free_symbol_table()
+void free_symbol_table()
 {
     FREE(symbol_table);
     symbol_table = 0;
 }
 
 
-free_symbols()
+void free_symbols()
 {
     register bucket *p, *q;
 

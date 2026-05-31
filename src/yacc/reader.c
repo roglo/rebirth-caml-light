@@ -12,6 +12,7 @@ extern void start_rule(register bucket *bp, int s_lineno);
 
 /* from error.c */
 extern void default_action_error();
+extern void entry_without_type(char *s);
 extern void illegal_character(char *c_cptr);
 extern void illegal_token_ref(int i, char *name);
 extern void no_grammar();
@@ -36,6 +37,11 @@ extern void unterminated_string(int s_lineno, char *s_line, char *s_cptr);
 extern void unterminated_text(int t_lineno, char *t_line, char *t_cptr);
 extern void unterminated_union(int u_lineno, char *u_line, char *u_cptr);
 extern void used_reserved(char *s);
+
+/* from symtab.c */
+extern void create_symbol_table();
+extern void free_symbol_table();
+extern void free_symbols();
 
 char *cache;
 int cinc, cache_size;
