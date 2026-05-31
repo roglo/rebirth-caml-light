@@ -1,3 +1,4 @@
+#include <string.h>
 #include "debugger.h"
 #include "fail.h"
 #include "freelist.h"
@@ -8,6 +9,7 @@
 #include "minor_gc.h"
 #include "misc.h"
 #include "mlvalues.h"
+#include "memory.h"
 
 value *c_roots_head;
 
@@ -18,6 +20,7 @@ value *c_roots_head;
 static char *expand_heap (request)
      mlsize_t request;
 {
+  char *raw_mem;
   char *mem;
   char *new_page_table;
   asize_t new_page_table_size;
@@ -27,13 +30,13 @@ static char *expand_heap (request)
   malloc_request = round_heap_chunk_size (Bhsize_wosize (request));
   gc_message ("Growing heap to %ldk\n",
 	      (stat_heap_size + malloc_request) / 1024);
-  mem = aligned_malloc (malloc_request + sizeof (heap_chunk_head),
-                        sizeof (heap_chunk_head));
-  if (mem == NULL){
+  raw_mem = aligned_malloc (malloc_request + sizeof (heap_chunk_head),
+                            sizeof (heap_chunk_head));
+  if (raw_mem == NULL){
     gc_message ("No room for growing heap\n", 0);
     return NULL;
   }
-  mem += sizeof (heap_chunk_head);
+  mem = raw_mem + sizeof (heap_chunk_head);
   (((heap_chunk_head *) mem) [-1]).size = malloc_request;
   Assert (Wosize_bhsize (malloc_request) >= request);
   Hd_hp (mem) = Make_header (Wosize_bhsize (malloc_request), 0, Blue);
@@ -53,7 +56,7 @@ static char *expand_heap (request)
     new_page_table = (char *) xmalloc (new_page_table_size);
     if (new_page_table == NULL){
       gc_message ("No room for growing page table\n", 0);
-      xfree (mem);
+      xfree (raw_mem);
       return NULL;
     }
   }

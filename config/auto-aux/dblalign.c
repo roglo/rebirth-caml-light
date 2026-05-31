@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <signal.h>
 #include <setjmp.h>
+#include <stdlib.h>
 
 double foo;
 
@@ -18,7 +19,7 @@ void sig_handler(sig)
   longjmp(failure, 1);
 }
 
-main()
+int main()
 {
   long n[10];
   int res;

@@ -5,6 +5,20 @@ extern short *itemset;
 extern short *itemsetend;
 extern unsigned *ruleset;
 
+extern void save_reductions();
+extern void initialize_states();
+extern void new_itemsets();
+extern void save_shifts();
+
+/* from closure.c */
+extern void closure(short *nucleus, int n);
+extern void finalize_closure();
+extern void set_first_derives();
+
+/* from error.c */
+extern void fatal(char *msg);
+extern void no_space();
+
 int nstates;
 core *first_state;
 shifts *first_shift;
@@ -30,7 +44,7 @@ static short **kernel_end;
 static short *kernel_items;
 
 
-allocate_itemsets()
+void allocate_itemsets()
 {
     register short *itemp;
     register short *item_end;
@@ -72,7 +86,7 @@ allocate_itemsets()
 }
 
 
-allocate_storage()
+void allocate_storage()
 {
     allocate_itemsets();
     shiftset = NEW2(nsyms, short);
@@ -81,7 +95,7 @@ allocate_storage()
 }
 
 
-append_states()
+void append_states()
 {
     register int i;
     register int j;
@@ -110,7 +124,7 @@ append_states()
 }
 
 
-free_storage()
+void free_storage()
 {
     FREE(shift_symbol);
     FREE(redset);
@@ -123,7 +137,7 @@ free_storage()
 
 
 
-generate_states()
+void generate_states()
 {
     allocate_storage();
     itemset = NEW2(nitems, short);
@@ -215,7 +229,7 @@ int symbol;
 
 
 
-initialize_states()
+void initialize_states()
 {
     register int i;
     register short *start_derives;
@@ -242,7 +256,7 @@ initialize_states()
 }
 
 
-new_itemsets()
+void new_itemsets()
 {
     register int i;
     register int shiftcount;
@@ -319,7 +333,7 @@ int symbol;
 
 /* show_cores is used for debugging */
 
-show_cores()
+void show_cores()
 {
     core *p;
     int i, j, k, n;
@@ -354,7 +368,7 @@ show_cores()
 
 /* show_ritems is used for debugging */
 
-show_ritems()
+void show_ritems()
 {
     int i;
 
@@ -364,7 +378,7 @@ show_ritems()
 
 
 /* show_rrhs is used for debugging */
-show_rrhs()
+void show_rrhs()
 {
     int i;
 
@@ -375,7 +389,7 @@ show_rrhs()
 
 /* show_shifts is used for debugging */
 
-show_shifts()
+void show_shifts()
 {
     shifts *p;
     int i, j, k;
@@ -393,7 +407,7 @@ show_shifts()
 }
 
 
-save_shifts()
+void save_shifts()
 {
     register shifts *p;
     register short *sp1;
@@ -427,7 +441,7 @@ save_shifts()
 
 
 
-save_reductions()
+void save_reductions()
 {
     register short *isp;
     register short *rp1;
@@ -476,7 +490,7 @@ save_reductions()
 }
 
 
-set_derives()
+void set_derives()
 {
     register int i, k;
     register int lhs;
@@ -506,7 +520,7 @@ set_derives()
 #endif
 }
 
-free_derives()
+void free_derives()
 {
     FREE(derives[start_symbol]);
     FREE(derives);
@@ -535,7 +549,7 @@ print_derives()
 #endif
 
 
-set_nullable()
+void set_nullable()
 {
     register int i, j;
     register int empty;
@@ -584,13 +598,13 @@ set_nullable()
 }
 
 
-free_nullable()
+void free_nullable()
 {
     FREE(nullable);
 }
 
 
-lr0()
+void lr0()
 {
     set_derives();
     set_nullable();

@@ -16,8 +16,42 @@ static short *check;
 static int lowzero;
 static int high;
 
+extern int default_goto(int symbol);
+extern void free_itemsets();
+extern void free_reductions();
+extern void free_shifts();
+extern void goto_actions();
+extern int matching_vector(int vector);
+extern void open_error(char *filename);
+extern void output_actions();
+extern void output_base();
+extern void output_check();
+extern void output_debug();
+extern void output_entries();
+extern void output_rule_data();
+extern void output_semantic_actions();
+extern void output_stored_text();
+extern void output_table();
+extern void output_trailing_text();
+extern void output_transl();
+extern void output_yydefred();
+extern void pack_table();
+extern int pack_vector(int vector);
+extern void save_column(int symbol, int default_state);
+extern void sort_actions();
+extern void token_actions();
 
-output()
+/* from error.c */
+extern void fatal(char *msg);
+extern void no_space();
+
+/* from mkpar.c */
+extern void free_parser();
+
+/* from skeleton.c */
+extern void write_section(char *section[]);
+
+void output()
 {
   extern char *header[], *define_tables[];
 
@@ -65,7 +99,7 @@ static void output_short(n)
   output_char(n >> 8);
 }
 
-output_rule_data()
+void output_rule_data()
 {
     register int i;
     register int j;
@@ -113,7 +147,7 @@ output_rule_data()
 }
 
 
-output_yydefred()
+void output_yydefred()
 {
     register int i, j;
 
@@ -140,7 +174,7 @@ output_yydefred()
 }
 
 
-output_actions()
+void output_actions()
 {
     nvectors = 2*nstates + nvars;
 
@@ -168,7 +202,7 @@ output_actions()
 }
 
 
-token_actions()
+void token_actions()
 {
     register int i, j;
     register int shiftcount, reducecount;
@@ -252,7 +286,7 @@ token_actions()
     FREE(actionrow);
 }
 
-goto_actions()
+void goto_actions()
 {
     register int i, j, k;
 
@@ -323,7 +357,7 @@ int symbol;
 
 
 
-save_column(symbol, default_state)
+void save_column(symbol, default_state)
 int symbol;
 int default_state;
 {
@@ -365,7 +399,7 @@ int default_state;
     width[symno] = sp1[-1] - sp[0] + 1;
 }
 
-sort_actions()
+void sort_actions()
 {
   register int i;
   register int j;
@@ -400,7 +434,7 @@ sort_actions()
 }
 
 
-pack_table()
+void pack_table()
 {
     register int i;
     register int place;
@@ -581,7 +615,7 @@ int vector;
 
 
 
-output_base()
+void output_base()
 {
     register int i, j;
 
@@ -652,7 +686,7 @@ output_base()
 
 
 
-output_table()
+void output_table()
 {
     register int i;
     register int j;
@@ -684,7 +718,7 @@ output_table()
 
 
 
-output_check()
+void output_check()
 {
     register int i;
     register int j;
@@ -713,7 +747,7 @@ output_check()
 }
 
 
-output_transl()
+void output_transl()
 {
   int i;
 
@@ -726,7 +760,7 @@ output_transl()
   fprintf(code_file, "    0|];;\n\n");
 }
 
-output_stored_text()
+void output_stored_text()
 {
     register int c;
     register FILE *in, *out;
@@ -753,11 +787,11 @@ output_stored_text()
 }
 
 
-output_debug()
+void output_debug()
 {
 }
 
-output_trailing_text()
+void output_trailing_text()
 {
     register int c, last;
     register FILE *in, *out;
@@ -814,7 +848,7 @@ output_trailing_text()
 }
 
 
-copy_file(file, file_name)
+void copy_file(file, file_name)
      FILE ** file;
      char * file_name;
 {
@@ -850,17 +884,17 @@ copy_file(file, file_name)
 
 }
 
-output_semantic_actions()
+void output_semantic_actions()
 {
   copy_file (&action_file, action_file_name);
 }
 
-output_entries()
+void output_entries()
 {
   copy_file (&entry_file, entry_file_name);
 }
 
-free_itemsets()
+void free_itemsets()
 {
     register core *cp, *next;
 
@@ -873,7 +907,7 @@ free_itemsets()
 }
 
 
-free_shifts()
+void free_shifts()
 {
     register shifts *sp, *next;
 
@@ -887,7 +921,7 @@ free_shifts()
 
 
 
-free_reductions()
+void free_reductions()
 {
     register reductions *rp, *next;
 

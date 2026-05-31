@@ -2,6 +2,9 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/wait.h>
 #include "misc.h"
 #include "debugger.h"
 #include "mlvalues.h"
@@ -182,7 +185,7 @@ int debugger(event)
   value val;
   value * p;
 
-  if (dbg_socket == -1) return;  /* Not connected to a debugger. */
+  if (dbg_socket == -1) return 0;  /* Not connected to a debugger. */
 
   /* Report the event to the debugger */
   switch(event) {

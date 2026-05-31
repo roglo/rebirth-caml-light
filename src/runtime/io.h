@@ -48,3 +48,6 @@ value close_in P((struct channel *));
 
 
 #endif /* _io_ */
+
+extern value pos_out(struct channel * channel);
+extern value seek_out(struct channel * channel, value pos);

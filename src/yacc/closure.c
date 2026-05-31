@@ -7,8 +7,10 @@ unsigned *ruleset;
 static unsigned *first_derives;
 static unsigned *EFF;
 
+/* from warshall.c */
+extern void reflexive_transitive_closure(unsigned *R, int n);
 
-set_EFF()
+void set_EFF()
 {
     register unsigned *row;
     register int symbol;
@@ -44,7 +46,7 @@ set_EFF()
 }
 
 
-set_first_derives()
+void set_first_derives()
 {
   register unsigned *rrow;
   register unsigned *vrow;
@@ -101,7 +103,7 @@ set_first_derives()
 }
 
 
-closure(nucleus, n)
+void closure(nucleus, n)
 short *nucleus;
 int n;
 {
@@ -176,7 +178,7 @@ int n;
 
 
 
-finalize_closure()
+void finalize_closure()
 {
   FREE(itemset);
   FREE(ruleset);

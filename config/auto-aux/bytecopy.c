@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <string.h>
+
 char buffer[27];
 
 #ifdef reverse
@@ -6,7 +9,7 @@ char buffer[27];
 #define cpy copy
 #endif
 
-main()
+int main()
 {
   cpy("abcdefghijklmnopqrstuvwxyz", buffer, 27);
   if (strcmp(buffer, "abcdefghijklmnopqrstuvwxyz") != 0) exit(1);

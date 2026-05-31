@@ -1,5 +1,7 @@
 /* Basic system calls */
 
+#include <stdio.h>
+#include <unistd.h>
 #include <errno.h>
 #ifdef __MWERKS__
 #include "myfcntl.h"
@@ -19,6 +21,7 @@
 #include "mlvalues.h"
 #include "signals.h"
 #include "stacks.h"
+#include "str.h"
 #include "sys.h"
 #ifdef HAS_UI
 #include "ui.h"
@@ -46,15 +49,9 @@ char * error_message()
 
 #else
 
-extern int sys_nerr;
-extern char * sys_errlist [];
-
 char * error_message()
 {
-  if (errno < 0 || errno >= sys_nerr)
-    return "unknown error";
-  else
-    return sys_errlist[errno];
+  return strerror(errno);
 }
 
 #endif /* HAS_STRERROR */

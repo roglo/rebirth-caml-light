@@ -3,6 +3,7 @@
 #endif
 #define HAS_MEMMOVE
 #define HAS_BCOPY
+#define HAS_MEMCPY
 #define sighandler_return_type void
 #define BSD_SIGNALS
 #define HAS_RENAME
@@ -23,10 +24,8 @@
 #define HAS_SYMLINK
 #define HAS_WAIT3
 #define HAS_WAITPID
-#define HAS_GETGROUPS
 #define HAS_TERMIOS
 #define HAS_ASYNC_IO
 #define HAS_SETITIMER
 #define HAS_GETHOSTNAME
-#define HAS_UNAME
 #define HAS_GETTIMEOFDAY

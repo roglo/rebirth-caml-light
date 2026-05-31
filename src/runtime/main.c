@@ -1,6 +1,7 @@
 /* Start-up code */
 
 #include <stdio.h>
+#include <unistd.h>
 #ifdef __MWERKS__
 #include "myfcntl.h"
 #else
@@ -128,7 +129,7 @@ Algorithm:
 #ifdef HAS_UI
 caml_main(argc, argv)
 #else
-main(argc, argv)
+int main(argc, argv)
 #endif
      int argc;
      char * argv[];

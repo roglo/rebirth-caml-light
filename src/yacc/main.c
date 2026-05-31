@@ -1,5 +1,29 @@
 #include <signal.h>
+#include <string.h>
+#include <unistd.h>
 #include "defs.h"
+
+/* from error.c */
+extern void no_space();
+extern void open_error(char *filename);
+
+/* from lalr.c */
+extern void lalr();
+
+/* from lr0.c */
+extern void lr0();
+
+/* from mkpar.c */
+extern void make_parser();
+
+/* from output.c */
+extern void output();
+
+/* from reader.c */
+extern void reader();
+
+/* from verbose.c */
+extern void verbose();
 
 char dflag;
 char lflag;
@@ -73,7 +97,7 @@ extern char *mktemp();
 extern char *getenv();
 
 
-done(k)
+void done(k)
 int k;
 {
     if (action_file) { fclose(action_file); unlink(action_file_name); }
@@ -97,7 +121,7 @@ void onintr(dummy)
 }
 
 
-set_signals()
+void set_signals()
 {
 #ifdef SIGINT
     if (signal(SIGINT, SIG_IGN) != SIG_IGN)
@@ -114,14 +138,14 @@ set_signals()
 }
 
 
-usage()
+void usage()
 {
     fprintf(stderr, "usage: %s [-vs] [-b file_prefix] filename\n",
             myname);
     exit(1);
 }
 
-getargs(argc, argv)
+void getargs(argc, argv)
 int argc;
 char *argv[];
 {
@@ -223,7 +247,7 @@ unsigned n;
 }
 
 
-create_file_names()
+void create_file_names()
 {
     int i, len;
     char *tmpdir;
@@ -310,7 +334,7 @@ create_file_names()
 }
 
 
-open_files()
+void open_files()
 {
     create_file_names();
 
@@ -370,7 +394,7 @@ open_files()
 }
 
 
-main(argc, argv)
+void main(argc, argv)
 int argc;
 char *argv[];
 {

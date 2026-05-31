@@ -25,7 +25,7 @@ char *define_tables[] =
   0
 };
 
-write_section(section)
+void write_section(section)
 char *section[];
 {
     register int i;

@@ -4,6 +4,9 @@
 #include "stacks.h"
 #include "str.h"
 
+/* in interp.c */
+extern value callback(value closure, value argument);
+
 struct lexer_buffer {
   value refill_buff;
   value lex_buffer;

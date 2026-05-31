@@ -1,6 +1,8 @@
+#include <string.h>
+#include <stdlib.h>
 #include "m.h"
 
-main()
+int main()
 {
   long n[2];
   char * p, * bigendian, * littleendian;

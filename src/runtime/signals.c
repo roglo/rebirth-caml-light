@@ -5,6 +5,9 @@
 #include "signals.h"
 #include "stacks.h"
 
+/* in interp.c */
+extern value callback(value closure, value argument);
+
 Volatile int async_signal_mode = 0;
 Volatile code_t pending_signal_handler;
 Volatile int pending_signal = 0;

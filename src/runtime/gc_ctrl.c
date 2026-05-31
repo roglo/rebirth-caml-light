@@ -3,6 +3,7 @@
 #include "gc.h"
 #include "gc_ctrl.h"
 #include "major_gc.h"
+#include "memory.h"
 #include "minor_gc.h"
 #include "mlvalues.h"
 

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <signal.h>
 #include <setjmp.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 long foo;
 
@@ -79,7 +81,7 @@ int speedtest(p)
   return total;
 }
 
-main()
+int main()
 {
   long n[1001];
   int speed_aligned, speed_unaligned;

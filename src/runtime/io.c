@@ -1,5 +1,7 @@
 /* Buffered input/output. */
 
+#include <unistd.h>
+#include <string.h>
 #include <errno.h>
 #ifdef __MWERKS__
 #include "myfcntl.h"

@@ -19,8 +19,16 @@ extern action *get_shifts();
 extern action *add_reductions();
 extern action *add_reduce();
 
+extern void defreds();
+extern void find_final_state();
+extern void remove_conflicts();
+extern void total_conflicts();
+extern void unused_rules();
 
-make_parser()
+/* from error.c */
+extern void no_space();
+
+void make_parser()
 {
     register int i;
 
@@ -150,7 +158,7 @@ register int ruleno, symbol;
 }
 
 
-find_final_state()
+void find_final_state()
 {
     register int goal, i;
     register short *to_state;
@@ -167,7 +175,7 @@ find_final_state()
 }
 
 
-unused_rules()
+void unused_rules()
 {
     register int i;
     register action *p;
@@ -199,7 +207,7 @@ unused_rules()
 }
 
 
-remove_conflicts()
+void remove_conflicts()
 {
     register int i;
     register int symbol;
@@ -274,7 +282,7 @@ remove_conflicts()
 }
 
 
-total_conflicts()
+void total_conflicts()
 {
     fprintf(stderr, "%s: ", myname);
     if (SRtotal == 1)
@@ -323,7 +331,7 @@ int stateno;
 }
 
 
-defreds()
+void defreds()
 {
     register int i;
 
@@ -332,7 +340,7 @@ defreds()
 	defred[i] = sole_reduction(i);
 }
  
-free_action_row(p)
+void free_action_row(p)
 register action *p;
 {
   register action *q;
@@ -345,7 +353,7 @@ register action *p;
     }
 }
 
-free_parser()
+void free_parser()
 {
   register int i;
 
