@@ -1,6 +1,6 @@
 #include "defs.h"
 
-transitive_closure(R, n)
+void transitive_closure(R, n)
 unsigned *R;
 int n;
 {
@@ -53,7 +53,7 @@ int n;
     }
 }
 
-reflexive_transitive_closure(R, n)
+void reflexive_transitive_closure(R, n)
 unsigned *R;
 int n;
 {

@@ -1,3 +1,6 @@
+#include <string.h>
+#include <unistd.h>
+
 #ifdef MSDOS
 char * runtime_name = "camlrun.exe";
 char * errmsg = "Cannot exec camlrun.exe.\n";
