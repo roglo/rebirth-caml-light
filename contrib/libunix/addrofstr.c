@@ -1,5 +1,6 @@
-#include <mlvalues.h>
-#include <fail.h>
+#include <string.h>
+#include "mlvalues.h"
+#include "fail.h"
 #include "unix.h"
 
 #ifdef HAS_SOCKETS

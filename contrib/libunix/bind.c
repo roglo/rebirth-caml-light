@@ -1,4 +1,5 @@
-#include <mlvalues.h>
+#include <string.h>
+#include "mlvalues.h"
 #include "unix.h"
 
 #ifdef HAS_SOCKETS
