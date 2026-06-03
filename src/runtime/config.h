@@ -2,6 +2,7 @@
 #define _config_
 
 
+#include <string.h>
 #ifdef macintosh
 #include ":::config:m.h"
 #include ":::config:s.h"

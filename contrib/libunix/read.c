@@ -1,4 +1,6 @@
+#include <unistd.h>
 #include <mlvalues.h>
+#include "signals.h"
 #include "unix.h"
 
 value unix_read(fd, buf, ofs, len) /* ML */

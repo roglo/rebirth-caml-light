@@ -1,4 +1,3 @@
-#include <string.h>
 #include "mlvalues.h"
 #include "unix.h"
 

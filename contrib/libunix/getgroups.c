@@ -1,3 +1,4 @@
+#include "fail.h"
 #include <mlvalues.h>
 #include <alloc.h>
 
