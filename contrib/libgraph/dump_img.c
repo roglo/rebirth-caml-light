@@ -1,6 +1,7 @@
 #include "libgraph.h"
 #include "image.h"
 #include <memory.h>
+#include "alloc.h"
 
 static value gr_alloc_int_vect(size)
      mlsize_t size;
