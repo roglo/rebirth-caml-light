@@ -4,11 +4,13 @@
 #include <sys/un.h>
 #include <netinet/in.h>
 
-extern union {
-  struct sockaddr s_gen;
-  struct sockaddr_un s_unix;
-  struct sockaddr_in s_inet;
-} sock_addr;
+typedef union {
+    struct sockaddr s_gen;
+    struct sockaddr_un s_unix;
+    struct sockaddr_in s_inet;
+} sock_addr_union;
+
+extern sock_addr_union sock_addr;
 
 extern int sock_addr_len;
 
