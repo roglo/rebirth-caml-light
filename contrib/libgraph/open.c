@@ -12,6 +12,13 @@
 extern void gr_init_color_cache();
 
 Display * grdisplay = NULL;
+int grscreen;
+Colormap grcolormap;
+struct canvas grwindow;
+struct canvas grbstore;
+int grwhite, grblack;
+int grx, gry;
+unsigned long grcolor;
 
 static Bool gr_initialized = False;
 
