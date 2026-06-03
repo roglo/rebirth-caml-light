@@ -5,6 +5,7 @@
 /*      modified_on 17-OCT-1989 20:35:55.91 by Jim Lawton             */
 
 #include <malloc.h>
+#include <stdlib.h>
 
 /* You can comment the line below if you want to test the C macro Package
    instead of C or Assembly functions. */
@@ -176,9 +177,9 @@ void RangeNumberPrint(s, n, nd, nl) char *s; BigNum n; int nd, nl; {
 		nl--;
 		if(!first) printf(", "); else first = 0;
 		if(BN_DIGIT_SIZE <= 16)
-			printf("%.4X", BnnGetDigit ((n+ nd + nl)));
+			printf("%.4lX", BnnGetDigit ((n+ nd + nl)));
 		else if(BN_DIGIT_SIZE <= 32)
-			printf("%.8X", BnnGetDigit ((n+ nd + nl)));
+			printf("%.8lX", BnnGetDigit ((n+ nd + nl)));
 		else	printf("%.16lX", BnnGetDigit ((n+ nd + nl)));
 	}
 	printf("}\n");
@@ -266,28 +267,28 @@ int Generique(e) struct testenv *e; {
 	length = genlengthvec[i];
 	n = BnCreate(type, length);
 	if((type2 = BnGetType(n)) != type) {
-		sprintf(e->hist,"BnGetType(BnCreate(%d, %d));", type, length);
+		sprintf(e->hist,"BnGetType(BnCreate(%ld, %d));", type, length);
 		if(ShowDiff0(e, type, type2)) return(TRUE);
 	}
 	if((length2 = BnGetSize(n)) != length) {
-		sprintf(e->hist,"BnGetSize(BnCreate(%d, %d));", type, length);
+		sprintf(e->hist,"BnGetSize(BnCreate(%ld, %d));", type, length);
 		if(ShowDiff0(e, length, length2)) return(TRUE);
 	}
 	if(BnFree(n) == 0) {
-		sprintf(e->hist, "BnFree(BnCreate(%d, %d));", type, length);
+		sprintf(e->hist, "BnFree(BnCreate(%ld, %d));", type, length);
 		if(ShowDiff0(e, 1, 0)) return(TRUE);
 	}
 	BnSetType((n = BnAlloc(length)), type);
 	if((type2 = BnGetType(n)) != type) {
-		sprintf(e->hist,"BnGetType(BnAlloc(%d, %d));", type, length);
+		sprintf(e->hist,"BnGetType(BnAlloc(%ld, %d));", type, length);
 		if(ShowDiff0(e, type, type2)) return(TRUE);
 	}
 	if((length2 = BnGetSize(n)) != length) {
-		sprintf(e->hist,"BnGetSize(BnAlloc(%d, %d));", type, length);
+		sprintf(e->hist,"BnGetSize(BnAlloc(%ld, %d));", type, length);
 		if(ShowDiff0(e, length, length2)) return(TRUE);
 	}
 	if(BnFree(n) == 0) {
-		sprintf(e->hist, "BnFree(BnAlloc(%d, %d));", type, length);
+		sprintf(e->hist, "BnFree(BnAlloc(%ld, %d));", type, length);
 		if(ShowDiff0(e, 1, 0)) return(TRUE);
 	}
    }
@@ -777,7 +778,7 @@ int TestBnAdd(e) struct testenv *e; {
 		l1 =    BnnAdd ((RN(0)+ nd),  nl, ( RN(1)+ md),  ml,  r);
 		l2 = ___BnAdd___(SN(0), nd, nl, SN(1), md, ml, r);
 		if(Check(2) || l1 != l2) {
-			sprintf(e->hist, "%s(n, %d, %d, m, %d, %d, %d)",
+			sprintf(e->hist, "%s(n, %d, %d, m, %d, %d, %ld)",
 					e->name, nd, nl, md, ml, r);
 			if(ShowDiff2(e, l1, l2, "n", nd, nl, "m", md, ml))
 				return(1);
@@ -810,7 +811,7 @@ int TestBnSubtractBorrow(e) struct testenv *e; {
 		l1 =    BnnSubtractBorrow ((RN(0)+ nd),  nl,  r);
 		l2 = ___BnSubtractBorrow___(SN(0), nd, nl, r);
 		if(Check(1) || l1 != l2) {
-			sprintf(e->hist, "%s(n, %d, %d, %d)",
+			sprintf(e->hist, "%s(n, %d, %d, %ld)",
 					e->name, nd, nl, r);
 			if(ShowDiff1(e, l1, l2, "n", nd, nl)) return(1);
 	}	}
@@ -843,7 +844,7 @@ int TestBnSubtract(e) struct testenv *e; {
 		l1 =    BnnSubtract ((RN(0)+ nd),  nl, ( RN(1)+ md),  ml,  r);
 		l2 = ___BnSubtract___(SN(0), nd, nl, SN(1), md, ml, r);
 		if(Check(2) || l1 != l2) {
-			sprintf(e->hist, "%s(n, %d, %d, m, %d, %d, %d)",
+			sprintf(e->hist, "%s(n, %d, %d, m, %d, %d, %ld)",
 					e->name, nd, nl, md, ml, r);
 			if(ShowDiff2(e, l1, l2, "n", nd, nl, "m", md, ml))
 				return(1);
@@ -966,7 +967,7 @@ int TestBnMultiply(e) struct testenv *e; {
 		l2 = ___BnMultiply___(SN(0),pd,pl,SN(1),nd,nl,SN(1),nd,nl);
 		if(Check(3) || l1 != l2) {
 			sprintf(e->hist,
-			   "BnMultiply(p, %d, %d, n, %d, %d, n, %d, %d)",
+			   "BnMultiply(p, %ld, %ld, n, %ld, %ld, n, %ld, %ld)",
 						pd, pl, nd, nl, nd, nl);
 			if(ShowDiff3(e,l1,l2,"p",pd,pl,"n",nd,nl,"n",nd,nl))
 				 return(1);
@@ -981,7 +982,7 @@ int TestBnMultiply(e) struct testenv *e; {
 		l2 = ___BnMultiply___(SN(0),pd,pl,SN(1),nd,nl,SN(2),md,ml);
 		if(Check(3) || l1 != l2) {
 			sprintf(e->hist,
-			   "BnMultiply(p, %d, %d, n, %d, %d, m, %d, %d)",
+			   "BnMultiply(p, %ld, %ld, n, %ld, %ld, m, %ld, %ld)",
 						pd, pl, nd, nl, md, ml);
 			if(ShowDiff3(e,l1,l2,"p",pd,pl,"n",nd,nl,"m",md,ml))
 				 return(1);
@@ -1020,6 +1021,19 @@ TESTONE AllTest[] = {
 	TestBnDivideDigit,			"BnDivideDigit",
 	TestBnMultiply,				"BnMultiply",
 };
+
+void seetest(n) int n; {
+	printf("%d.	Testing %s\n", n, AllTest[n].NameFnt);
+}
+
+
+void dotest(e, n) struct testenv *e; int n; {
+	seetest(n);
+	TestCount = 0;
+	e->name = AllTest[n].NameFnt;
+	if(((*(AllTest[n].TestFnt)) (e)) && e->flag > 1) exit(0);
+	printf("%d tests were performed\n", TestCount);
+}
 
 void main(n, s) int n; char **s; {
 	struct testenv realenv, *e = &realenv;
@@ -1074,16 +1088,3 @@ void main(n, s) int n; char **s; {
 				printf("Test %d is invalid\n", nbtest);
 			else	dotest(e, nbtest);
 }	}	}
-
-void dotest(e, n) struct testenv *e; int n; {
-	seetest(n);
-	TestCount = 0;
-	e->name = AllTest[n].NameFnt;
-	if(((*(AllTest[n].TestFnt)) (e)) && e->flag > 1) exit(0);
-	printf("%d tests were performed\n", TestCount);
-}
-
-void seetest(n) int n; {
-	printf("%d.	Testing %s\n", n, AllTest[n].NameFnt);
-}
-
