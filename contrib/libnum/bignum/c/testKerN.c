@@ -108,6 +108,11 @@ int dummy()
     printf("TestCount = %d\n", TestCount);
 }
 
+int ErrorPrint(e) struct testenv *e; {
+	printf("*** Error in compute : %s\n", e->hist);
+	printf("  Depends on %s\n", e->depend);
+}
+
 int TestCountInc()
 {
     TestCount++;
@@ -121,14 +126,6 @@ int ResetTest(n) int n; {
 	BnnAssign ((SN(n)+ 0), ( NumbProto+ 0),  TESTLENGTH);
 }
 
-int Check(n) int n; {
-	int i;
-	/* Verifie que les n nombres calcules correspondent aux simule's. */
-	for(i = 0; i < n; i++)
-		if(CheckSubRange(i, 0, TESTLENGTH)) return(1);
-	return(FALSE);
-}
-
 int CheckSubRange(x, nd, nl) int x, nd, nl; {
 	/* Verifie l'e'galite' des sous-nombres
            (RN(x), nd, nl) et (SN(x), nd, nl) */
@@ -140,12 +137,60 @@ int CheckSubRange(x, nd, nl) int x, nd, nl; {
 	return(FALSE);
 }
 
+int Check(n) int n; {
+	int i;
+	/* Verifie que les n nombres calcules correspondent aux simule's. */
+	for(i = 0; i < n; i++)
+		if(CheckSubRange(i, 0, TESTLENGTH)) return(1);
+	return(FALSE);
+}
+
 int ShowDiff0(e, r1, r2) struct testenv *e; int r1,r2; {
 	ErrorPrint(e);
 	if(r1 != r2)
 		printf("---- Result is %d and should be %d----\n", r1, r2);
 	return(e->flag);
 }
+
+char *msg = "---- Modification Out of Range of number ";
+int ShowOutRange(x, n, nd, nl) char *n; int x, nd, nl; {
+	int i = 0, bol = 0;
+
+	while(i = CheckSubRange(x, i, TESTLENGTH - i)) {
+		if((i <= nd) || (i > nd + nl)) {
+			if(!bol) {
+				bol = 1;
+				printf("%s %s at index: (%d", msg, n, i - 1);
+			} else {
+				printf(" %d", i - 1);
+	}	}	}
+	if(bol) printf(").\n");
+}
+
+void RangeNumberPrint(s, n, nd, nl) char *s; BigNum n; int nd, nl; {
+	int first = 1;
+
+	/* Ne marche que si BnGetDigit est garanti!!! */
+	printf("%s {", s);
+	while(nl) {
+		nl--;
+		if(!first) printf(", "); else first = 0;
+		if(BN_DIGIT_SIZE <= 16)
+			printf("%.4X", BnnGetDigit ((n+ nd + nl)));
+		else if(BN_DIGIT_SIZE <= 32)
+			printf("%.8X", BnnGetDigit ((n+ nd + nl)));
+		else	printf("%.16lX", BnnGetDigit ((n+ nd + nl)));
+	}
+	printf("}\n");
+}
+
+void ShowSubNumber(x, n, nd, nl) char *n; int x, nd, nl; {
+	printf("[%s, %d, %d] =	", n, nd, nl);
+	RangeNumberPrint("", RN(x), nd, nl);
+	if(CheckSubRange(x, nd, nl)) {
+		RangeNumberPrint(" Before:	", NumbProto, nd, nl);
+		RangeNumberPrint(" Simulated:	", SN(x), nd, nl);
+}	}
 
 int ShowDiff1(e, r1, r2, n, nd, nl)
 		struct testenv *e; char *n; int r1, r2, nd, nl; {
@@ -199,51 +244,6 @@ int ShowDiff4(e, r1, r2, n, nd, nl, m, md, ml, o, od, ol, p, pd, pl)
 	ShowSubNumber(2, o, od, ol);
 	ShowSubNumber(3, p, pd, pl);
 	return(e->flag);
-}
-
-int ShowSubNumber(x, n, nd, nl) char *n; int x, nd, nl; {
-	printf("[%s, %d, %d] =	", n, nd, nl);
-	RangeNumberPrint("", RN(x), nd, nl);
-	if(CheckSubRange(x, nd, nl)) {
-		RangeNumberPrint(" Before:	", NumbProto, nd, nl);
-		RangeNumberPrint(" Simulated:	", SN(x), nd, nl);
-}	}
-
-int RangeNumberPrint(s, n, nd, nl) char *s; BigNum n; int nd, nl; {
-	int first = 1;
-
-	/* Ne marche que si BnGetDigit est garanti!!! */
-	printf("%s {", s);
-	while(nl) {
-		nl--;
-		if(!first) printf(", "); else first = 0;
-		if(BN_DIGIT_SIZE <= 16)
-			printf("%.4X", BnnGetDigit ((n+ nd + nl)));
-		else if(BN_DIGIT_SIZE <= 32)
-			printf("%.8X", BnnGetDigit ((n+ nd + nl)));
-		else	printf("%.16lX", BnnGetDigit ((n+ nd + nl)));
-	}
-	printf("}\n");
-}
-
-char *msg = "---- Modification Out of Range of number ";
-int ShowOutRange(x, n, nd, nl) char *n; int x, nd, nl; {
-	int i = 0, bol = 0;
-
-	while(i = CheckSubRange(x, i, TESTLENGTH - i)) {
-		if((i <= nd) || (i > nd + nl)) {
-			if(!bol) {
-				bol = 1;
-				printf("%s %s at index: (%d", msg, n, i - 1);
-			} else {
-				printf(" %d", i - 1);
-	}	}	}
-	if(bol) printf(").\n");
-}		
-
-int ErrorPrint(e) struct testenv *e; {
-	printf("*** Error in compute : %s\n", e->hist);
-	printf("  Depends on %s\n", e->depend);
 }
 
 /*
