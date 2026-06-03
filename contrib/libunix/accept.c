@@ -1,6 +1,8 @@
-#include <mlvalues.h>
-#include <alloc.h>
-#include <memory.h>
+#include <string.h>
+#include "mlvalues.h"
+#include "alloc.h"
+#include "memory.h"
+#include "signals.h"
 #include "unix.h"
 
 #ifdef HAS_SOCKETS
