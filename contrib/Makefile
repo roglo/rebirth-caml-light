@@ -6,6 +6,7 @@
 # "debugger", "libgraph", "camltk", "camltk4", and "search_isos".
 PACKAGES=libunix libgraph debugger libnum libstr mletags \
   camlmode lorder profiler camltk4 camlsearch
+PACKAGES=libunix
 # caml-tex
 # caml-latex2e
 # camltk

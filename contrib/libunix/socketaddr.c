@@ -10,6 +10,7 @@
 #include "socketaddr.h"
 
 sock_addr_union sock_addr;
+int sock_addr_len;
 
 value alloc_inet_addr(a)
      uint32 a;
