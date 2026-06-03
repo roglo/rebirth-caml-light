@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
 #include "libgraph.h"
@@ -6,6 +7,9 @@
 #ifdef HAS_SETITIMER
 #include <sys/time.h>
 #endif
+
+/* from color.c */
+extern void gr_init_color_cache();
 
 Display * grdisplay = NULL;
 
