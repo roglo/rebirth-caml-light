@@ -1,3 +1,4 @@
+#include <sys/socket.h>
 #include <mlvalues.h>
 #include <alloc.h>
 #include "unix.h"
