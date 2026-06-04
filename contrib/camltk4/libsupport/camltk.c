@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <sys/param.h>
 
-#include <tk.h>
+#include <tk/tk.h>
 #include <mlvalues.h>
 #include <alloc.h>
 #include <memory.h>
