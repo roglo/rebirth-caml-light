@@ -28,7 +28,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NULL                    0
 #define max(a,b) 		(a<b ? b : a)
 #define abs(x)			(x>=0 ? x : -(x))
 #define M_LN2	                0.69314718055994530942

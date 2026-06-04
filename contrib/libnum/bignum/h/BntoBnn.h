@@ -95,7 +95,7 @@ int BnFree(n) BigNum n; {
 }
  
 /* Returns the BigNum's Type */
-int BigNumType BnGetType(n) BigNum n; {
+BigNumType BnGetType(n) BigNum n; {
         return(BN_TYPE(n));
 }
  

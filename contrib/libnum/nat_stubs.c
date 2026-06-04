@@ -1,6 +1,7 @@
 #define CAML_LIGHT
 #include "BigNum.h"
 #include "BntoBnn.h"
+#include "memory.h"
 #include "mlvalues.h"
 #include "alloc.h"
 #include "nat.h"
