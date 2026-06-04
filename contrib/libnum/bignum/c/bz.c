@@ -20,9 +20,13 @@
 #include <stdio.h>
 #include <macros.h>
 #include <math.h>
+*/
 #include <malloc.h>
+/*
 #include <values.h>
 */
+#include <stdlib.h>
+#include <string.h>
 
 #define NULL                    0
 #define max(a,b) 		(a<b ? b : a)
@@ -42,7 +46,9 @@
                                  c >= 'A' && c <= 'F' ? c - 'A' + 10:\
                                  0)
 
+/*
 extern char *malloc();
+*/
 
                         /*** copyright ***/
 

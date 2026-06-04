@@ -3,6 +3,7 @@
 /*      modified_on Mon Apr 15 18:44:14 GMT+2:00 1991 by herve */
 
 #include <stdio.h>
+#include <string.h>
 #include "BigZ.h"
 
 #ifndef MSDOS
@@ -47,7 +48,7 @@ char *B, *C;
 #define two31m1         FromI(0x7FFFFFFF)
 #endif
 
-main()
+void main()
 {
    BigZ a,b;
 
