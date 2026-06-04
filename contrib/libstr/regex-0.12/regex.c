@@ -4613,7 +4613,7 @@ bcmp_translate (s1, s2, len, translate)
    
    We call regex_compile to do the actual compilation.  */
 
-const char *
+char *
 re_compile_pattern (pattern, length, bufp)
      const char *pattern;
      int length;

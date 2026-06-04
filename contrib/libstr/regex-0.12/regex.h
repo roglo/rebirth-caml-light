@@ -406,7 +406,7 @@ extern reg_syntax_t re_set_syntax _RE_ARGS ((reg_syntax_t syntax));
 /* Compile the regular expression PATTERN, with length LENGTH
    and syntax given by the global `re_syntax_options', into the buffer
    BUFFER.  Return NULL if successful, and an error string if not.  */
-extern const char *re_compile_pattern
+extern char *re_compile_pattern
   _RE_ARGS ((const char *pattern, int length,
              struct re_pattern_buffer *buffer));
 
